@@ -18,7 +18,7 @@ public class Player {
     }
 
     private void InitInventory() {
-        this.Inventory = new LinkedHashMap<Item, Integer>();
+        this.Inventory = new LinkedHashMap<>();
         Inventory.put(new Item("Dirt"), 0);
         Inventory.put(new Item("Sand"), 0);
         Inventory.put(new Item("Wood"), 0);

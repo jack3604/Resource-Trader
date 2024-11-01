@@ -13,7 +13,7 @@ public class City {
     }
 
     private void InitLocations() {
-        this.Locations = new LinkedHashMap<String, Location>();
+        this.Locations = new LinkedHashMap<>();
 
         if (this.HomeCity) {
             Locations.put("Home", new Location("Home"));
