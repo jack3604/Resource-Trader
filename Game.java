@@ -97,10 +97,12 @@ public class Game {
                 case "train station":
                     return CurrentPlayer.CurrentCity.Locations.get("Train");
                 case "back":
-                    return CurrentPlayer.CurrentLocation;
+                    // Break while loop and return current location
+                    inputGood = true;
             }
         }
 
+        // Don't change destination
         return CurrentPlayer.CurrentLocation;
     }
 
@@ -176,7 +178,11 @@ public class Game {
             String input = GetInput("Enter quantity:  ");
             try {
                 return Integer.parseInt(input);
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+                if (input.equalsIgnoreCase("back")) {
+                    inputGood = true;
+                }
+            }
         }
 
         return 0;

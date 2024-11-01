@@ -1,9 +1,6 @@
 import java.util.Scanner;
 
 public class Main {
-    public static final int SCREEN_WIDTH = 80;
-    public static final int SCREEN_HEIGHT = 50;
-
     public static void main(String[] args) {
         Game game = new Game(100.0, "Cape Coral");
 
