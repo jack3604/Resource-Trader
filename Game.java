@@ -13,12 +13,12 @@ public class Game {
     protected Player CurrentPlayer;
     protected int DayCount;
 
-    Game(Double money, String homeCityName) {
-        this.InputScanner = new Scanner(System.in);             // Game input scanner
-        City homeCity = new City(homeCityName, true);     // Home city constructor to pass to player object
-        this.CurrentPlayer = new Player(money, homeCity);       // Main player object
-        this.DayCount = 1;                                      // Init day count
-        InitCities(homeCity);                                   // Init starting cities including home city passed
+    Game(Double startingMoney, String homeCityName) {
+        this.InputScanner = new Scanner(System.in);                     // Game input scanner
+        City homeCity = new City(homeCityName, true);             // Home city constructor to pass to player object, this is a custom city
+        this.CurrentPlayer = new Player(startingMoney, homeCity);       // Main player object
+        this.DayCount = 1;                                              // Init day count
+        InitCities(homeCity);                                           // Init starting cities including home city passed
     }
 
     //////////////////////////
