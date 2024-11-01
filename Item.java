@@ -12,7 +12,5 @@ public class Item {
         this.Price = 0.0;
     }
 
-    public Double getPrice() { return Price; }
-
     public void setPrice(Double price) { Price = price; }
 }

@@ -24,6 +24,9 @@ public class Main {
                 case "go":
                     game.ChangeLocation();
                     break;
+                case "store":
+                    game.OpenStore();
+                    break;
                 case "exit":
                     play = false;
                     break;

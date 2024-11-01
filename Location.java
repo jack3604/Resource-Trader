@@ -4,7 +4,7 @@ import java.util.Map;
 public class Location {
     protected String Name;
     // map of items with item and quantity
-    private Map<Item, Integer> ItemMap = new LinkedHashMap<>();
+    protected Map<Item, Integer> ItemMap = new LinkedHashMap<>();
 
     Location(String name) {
         InitItemMap();

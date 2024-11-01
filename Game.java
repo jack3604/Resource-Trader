@@ -1,6 +1,5 @@
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Game {
@@ -133,6 +132,72 @@ public class Game {
         return CurrentPlayer.CurrentCity;
     }
 
+    public void OpenStore() {
+        if (CurrentPlayer.CurrentLocation.Name.equals("The Store")) {
+            boolean inputGood = false;
+            while (!inputGood) {
+                DrawStoreScreen();
+                String input = GetInput("Buy or sell?:  ");
+
+                if (input.equalsIgnoreCase("buy")) {
+                    Item item = GetStoreInputItem();
+                    if (item == null) {
+                        continue;
+                    }
+
+                    int quantity = GetStoreInputQuantity();
+                    if (quantity == 0) {
+                        continue;
+                    }
+
+                    CurrentPlayer.MakePurchase(item, quantity);
+                } else if (input.equalsIgnoreCase("sell")) {
+                    Item item = GetStoreInputItem();
+                    if (item == null) {
+                        continue;
+                    }
+
+                    int quantity = GetStoreInputQuantity();
+                    if (quantity == 0) {
+                        continue;
+                    }
+
+                    CurrentPlayer.MakeOffer(item, quantity);
+                } else if (input.equalsIgnoreCase("back")) {
+                    inputGood = true;
+                }
+            }
+        }
+    }
+
+    public int GetStoreInputQuantity() {
+        boolean inputGood = false;
+        while (!inputGood) {
+            String input = GetInput("Enter quantity:  ");
+            try {
+                return Integer.parseInt(input);
+            } catch (Exception ignored) {}
+        }
+
+        return 0;
+    }
+
+    public Item GetStoreInputItem() {
+        boolean inputGood = false;
+        while (!inputGood) {
+            String input = GetInput("Enter item name: ");
+            for (Item item : CurrentPlayer.CurrentLocation.ItemMap.keySet()) {
+                if (input.equalsIgnoreCase(item.Name)) {
+                    return item;
+                } else if (input.equalsIgnoreCase("back")) {
+                    inputGood = true;
+                }
+            }
+        }
+
+        return null;
+    }
+
     //////////////////////////
     // Graphics Methods     //
     //////////////////////////
@@ -144,7 +209,7 @@ public class Game {
 
     public void DrawMainScreen() {
         String cityString = "City: " + CurrentPlayer.CurrentCity.Name;
-        String moneyString = "Money: " + CurrentPlayer.Money;
+        String moneyString = "Money: $" + CurrentPlayer.Money;
         String dayString = " Day: " + DayCount;
         String locationString = "Location: " + CurrentPlayer.CurrentLocation.Name;
         String header = cityString + " ".repeat(SCREEN_WIDTH - moneyString.length() - dayString.length() - locationString.length()) + locationString + "\n";
@@ -178,6 +243,24 @@ public class Game {
             } else {
                 System.out.println(Cities.get(city).Name + "\n");
             }
+        }
+    }
+
+    public void DrawStoreScreen() {
+        ClearScreen();
+        String header = "Money: $" + CurrentPlayer.Money;
+        System.out.println(header);
+        System.out.println("Your inventory:");
+
+        for (Item item : CurrentPlayer.Inventory.keySet()) {
+            int quantity = CurrentPlayer.Inventory.get(item);
+            System.out.println(item.Name + ": " + quantity);
+        }
+
+        System.out.println("\nStore inventory:");
+        Item[] availableItems = CurrentPlayer.CurrentLocation.ItemMap.keySet().toArray(new Item[0]);
+        for (Item item : availableItems) {
+            System.out.println("$" + item.Price + " " + item.Name + ": " + CurrentPlayer.CurrentLocation.ItemMap.get(item));
         }
     }
 }
