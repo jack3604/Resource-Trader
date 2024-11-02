@@ -212,6 +212,11 @@ public class Game {
 
     public void DailyChanges() {
         RandomizeItemPrices();
+        if (DayCount % 10 == 0) {
+            RestockAllStores();
+        } else {
+            RestockStore(CurrentPlayer.CurrentCity.Locations.get("Store"));
+        }
     }
 
     public void RandomizeItemPrices() {
@@ -233,6 +238,21 @@ public class Game {
 
                 item.SetPrice(RoundDouble(randomPrice));
             }
+        }
+    }
+
+    public void RestockStore(Location location) {
+        for (Item item : location.ItemMap.keySet()) {
+            int actualQuantity = location.ItemMap.get(item);
+            int desiredQuantity = location.BaseQuantityMap.get(item.Name) / 2;
+            if (actualQuantity < desiredQuantity) {
+                location.ItemMap.replace(item, location.ItemMap.get(item) + ((desiredQuantity / 2) * 3));
+            }
+        }
+    }
+    public void RestockAllStores() {
+        for (City city : Cities.values()) {
+            RestockStore(city.Locations.get("Store"));
         }
     }
 

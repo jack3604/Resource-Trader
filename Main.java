@@ -15,7 +15,7 @@
 
 public class Main {
     public static void main(String[] args) {
-        Game game = new Game(100.0, "Cape Coral");
+        Game game = new Game(10000.0, "Cape Coral");
 
         boolean play = true;
 
