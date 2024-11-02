@@ -1,3 +1,18 @@
+////////////////////////////////////////////
+//                 TO-DO                  //
+//                                        //
+//  Done - Add buying and selling         //
+//                                        //
+//  Done - Add price variation            //
+//  ____ - Add discount shop items        //
+//  ____ - Add some features for the      //
+//         home location                  //
+//                                        //
+//                                        //
+//                                        //
+//                                        //
+////////////////////////////////////////////
+
 public class Main {
     public static void main(String[] args) {
         Game game = new Game(100.0, "Cape Coral");

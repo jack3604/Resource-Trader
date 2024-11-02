@@ -1,5 +1,6 @@
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
@@ -62,6 +63,10 @@ public class Game {
         return result.toString().trim();
     }
 
+    private Double RoundDouble(Double d) {
+        return Math.round(d * 100.0) / 100.0;
+    }
+
     //////////////////////////
     // Game Methods         //
     //////////////////////////
@@ -113,6 +118,7 @@ public class Game {
             if (destination != CurrentPlayer.CurrentCity) {
                 DayCount++;
                 CurrentPlayer.CurrentCity = destination;
+                DailyChanges();
             }
         }
     }
@@ -202,6 +208,32 @@ public class Game {
         }
 
         return null;
+    }
+
+    public void DailyChanges() {
+        RandomizeItemPrices();
+    }
+
+    public void RandomizeItemPrices() {
+        Random random = new Random();
+        for (City city : Cities.values()) {
+            for (Item item : city.Locations.get("Store").ItemMap.keySet()) {
+                boolean coinFlip = random.nextBoolean();
+                double randomPrice;
+                if (coinFlip) {
+                    randomPrice = item.Price + (random.nextDouble() * item.BasePrice);
+                } else {
+                    randomPrice = item.Price - (random.nextDouble() * item.BasePrice);
+                }
+
+                randomPrice = RoundDouble(randomPrice);
+                if (randomPrice <= 0.0) {
+                    randomPrice = item.BasePrice + randomPrice;
+                }
+
+                item.SetPrice(RoundDouble(randomPrice));
+            }
+        }
     }
 
     //////////////////////////
