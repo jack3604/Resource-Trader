@@ -1,3 +1,4 @@
+import java.nio.file.LinkPermission;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
@@ -70,6 +71,17 @@ public class Game {
     //////////////////////////
     // Game Methods         //
     //////////////////////////
+
+    public void ShowHelpScreen() {
+        boolean inputGood = false;
+        while (!inputGood) {
+            DrawHelpScreen();
+            String input = GetInput();
+            if (input.equalsIgnoreCase("back")) {
+                inputGood = true;
+            }
+        }
+    }
 
     public void ChangeLocation() {
         CurrentPlayer.SetLocation(GetDestinationLocation());
@@ -263,6 +275,21 @@ public class Game {
     public void ClearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    public void DrawHelpScreen() {
+        ClearScreen();
+
+        System.out.println("On the main screen available actions are: go, store and travel. character case is ignored.");
+        System.out.println();
+        System.out.println("Go - Change locations within the current city.");
+        System.out.println("Store - Check out the store (as long as you are at the store).");
+        System.out.println("Travel - Go to another city and end the day. Must be done from the train station.");
+        System.out.println("Help - Show this help screen.");
+        System.out.println("Exit - Quits and exits the game.");
+        System.out.println();
+        System.out.println("Stores restock in the city your visiting every day and in all cities every 10 days.");
+        System.out.println("Type \"back\" to clear this screen and continue playing.");
     }
 
     public void DrawMainScreen() {

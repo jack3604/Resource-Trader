@@ -36,6 +36,9 @@ public class Main {
                 case "store":
                     game.OpenStore();
                     break;
+                case "help":
+                    game.ShowHelpScreen();
+                    break;
                 case "exit":
                     play = false;
                     break;
